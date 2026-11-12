@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var VOLUME = 0.3; // 30%
+  var VOLUME = 0.7; // 70%
 
   var music = document.getElementById('bg-music');
   music.volume = VOLUME;
