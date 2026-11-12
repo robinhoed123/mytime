@@ -1,0 +1,118 @@
+:root {
+  --cyan: #00ffff;
+  --ink: #252525;
+  --mint: #dbffd9;
+  /* Clock size: as big as fits, leaving room for the digital clock */
+  --size: min(calc(100vw - 32px), 68vh);
+}
+
+@supports (height: 100dvh) {
+  :root { --size: min(calc(100vw - 32px), 68dvh); }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--cyan);
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--size) * 0.02);
+  padding: 16px;
+}
+
+/* ---------- Analog ---------- */
+.analog {
+  position: relative;
+  width: var(--size);
+  aspect-ratio: 1 / 1;
+}
+
+.analog .face,
+.analog .hands {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.hands line {
+  stroke: var(--ink);
+  stroke-linecap: round;
+}
+
+#hour-hand line   { stroke-width: 18; }
+#minute-hand line { stroke-width: 11; }
+
+/* ---------- Digital ---------- */
+.digital {
+  width: calc(var(--size) * 0.62);
+  background: var(--mint);
+  border-radius: 999px;
+  padding: calc(var(--size) * 0.012) calc(var(--size) * 0.05);
+}
+
+#digits {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+#digits path,
+#digits circle {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#digits .outline { stroke: var(--cyan); stroke-width: 24; }
+#digits .ink     { stroke: var(--ink);  stroke-width: 15; }
+#digits circle.ink { fill: var(--ink); stroke-width: 0; }
+#digits circle.outline { fill: var(--cyan); stroke-width: 0; }
+
+#colon { transition: opacity 0.25s; }
+#colon.dim { opacity: 0.25; }
+
+/* Landscape phones: put the clocks side by side */
+@media (orientation: landscape) and (max-height: 520px) {
+  :root { --size: min(78vh, 55vw); }
+  @supports (height: 100dvh) {
+    :root { --size: min(78dvh, 55vw); }
+  }
+  .stage { flex-direction: row; gap: calc(var(--size) * 0.08); }
+  .digital { width: calc(var(--size) * 0.8); }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #colon { transition: none; }
+}

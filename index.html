@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#00ffff">
+  <meta name="description" content="My Time: an analog and 24-hour digital clock.">
+  <title>My Time</title>
+  <link rel="icon" type="image/png" href="img/clock-hands.png">
+  <link rel="apple-touch-icon" href="img/clock-hands.png">
+  <meta property="og:title" content="My Time">
+  <meta property="og:image" content="img/clock-hands.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="stage">
+    <!-- Analog clock: the face image with hands drawn on top -->
+    <div class="analog" aria-hidden="true">
+      <img class="face" src="img/clock-face.png" alt="" width="1080" height="1080">
+      <svg class="hands" viewBox="0 0 1080 1080">
+        <g id="hour-hand">
+          <line x1="565" y1="320" x2="565" y2="190" />
+        </g>
+        <g id="minute-hand">
+          <line x1="565" y1="320" x2="565" y2="88" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- Digital clock: 24-hour HH:MM, digits drawn in the logo's style -->
+    <div class="digital" role="timer" aria-live="off">
+      <svg id="digits" viewBox="0 0 380 150" aria-hidden="true"></svg>
+      <span id="time-text" class="sr-only"></span>
+    </div>
+  </main>
+
+  <script src="clock.js"></script>
+</body>
+</html>
